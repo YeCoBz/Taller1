@@ -8,15 +8,15 @@ class Software {
     private:
     string name;
     string developer;
-    int minAge;
+    string minAge;
     list<User*> userList;
     double price;
 
     public:
-    Software(string,string,int,double);
+    Software(string,string,string,double);
 };
 
-Software::Software(string name,string developer,int minAge,double price) {
+Software::Software(string name,string developer,string minAge,double price) {
     this->name = name;
     this->developer = developer;
     this->minAge = minAge;

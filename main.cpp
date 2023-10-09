@@ -71,7 +71,7 @@ void createObject(list<User>& userList,list<Software>& softList) {
 
             string nameSoft = tokens[1];
             string developer = tokens[2];
-            int minAge = stoi(tokens[3]);
+            string minAge = tokens[3];
             double price = stod(tokens[4]);
             int cont = tokens.size();
 
@@ -127,8 +127,8 @@ void createObject(list<User>& userList,list<Software>& softList) {
                 
                 for (int i = 5; i < cont; i++) {
                     nameFriend = tokens[i];
-                    //User *u = searchUserByName(userList,nameFriend);
-                    //social.addFriend(u);
+                    User *u = searchUserByName(userList,nameFriend);
+                    social.addFriend(u);
                 }
                 
                 softList.push_back(social);
@@ -147,6 +147,7 @@ void createObject(list<User>& userList,list<Software>& softList) {
         }
         
     }
+    arch.close();
 
 }
 

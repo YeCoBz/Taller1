@@ -5,9 +5,9 @@ class Security: public Software {
     private:
     string typeMalware;
     public:
-    Security(string,string,int,double,string);
+    Security(string,string,string,double,string);
 };
 
-Security::Security(string name,string developer,int minAge,double price,string typeMalware) : Software(name,developer,minAge,price) {
+Security::Security(string name,string developer,string minAge,double price,string typeMalware) : Software(name,developer,minAge,price) {
     this->typeMalware = typeMalware;
 }

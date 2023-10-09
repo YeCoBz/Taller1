@@ -5,9 +5,9 @@ class OfficeAutomation : public Software {
     private:
     int numFiles;
     public:
-    OfficeAutomation(string,string,int,double,int);
+    OfficeAutomation(string,string,string,double,int);
 };
 
-OfficeAutomation::OfficeAutomation(string name,string developer,int minAge,double price,int numFiles) : Software(name,developer,minAge,price) {
+OfficeAutomation::OfficeAutomation(string name,string developer,string minAge,double price,int numFiles) : Software(name,developer,minAge,price) {
     this->numFiles = numFiles;
 }

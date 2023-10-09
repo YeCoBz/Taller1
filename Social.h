@@ -11,11 +11,11 @@ class Social : public Software{
     private:
         list<User*> friendList;
     public:
-        Social(string, string, int, double);
+        Social(string, string, string, double);
         void addFriend(User*);
 };
 
-Social::Social(string name, string developer, int age, double price) : Software(name, developer, age, price) {
+Social::Social(string name, string developer, string age, double price) : Software(name, developer, age, price) {
     friendList = list<User*>();
 }
 void Social::addFriend(User* user) {

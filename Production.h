@@ -5,9 +5,9 @@ class Production: public Software {
     private:
     string typeSolution;
     public:
-    Production(string,string,int,double,string);
+    Production(string,string,string,double,string);
 };
 
-Production::Production(string name,string developer,int minAge,double price,string typeSolution) : Software(name,developer,minAge,price) {
+Production::Production(string name,string developer,string minAge,double price,string typeSolution) : Software(name,developer,minAge,price) {
     this->typeSolution = typeSolution;
 }
