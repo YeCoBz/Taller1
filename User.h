@@ -13,19 +13,81 @@ class User {
     bool logAccess;
     
     public:
+
+    /**
+     * Constructor de la clase User.
+     * 
+     * @param name Nombre del usuario.
+     * @param password Contraseña del usuario.
+     * @param age Edad del usuario.
+     * @param mail Correo electrónico del usuario.
+     * @param logAccess Indica si el usuario tiene acceso al registro.
+     */
     User(string,string,int,string,string);
 
     // Getters
+    /**
+     * Obtiene el nombre del usuario.
+     * 
+     * @return Nombre del usuario.
+     */
     string getName();
+
+    /**
+     * Obtiene la contraseña del usuario.
+     * 
+     * @return Contraseña del usuario.
+     */
     string getPassword();
+
+    /**
+     * Obtiene la edad del usuario.
+     * 
+     * @return Edad del usuario.
+     */
     int getAge();
+
+    /**
+     * Obtiene el correo electrónico del usuario.
+     * 
+     * @return Correo electrónico del usuario.
+     */
     string getMail();
+
+    /**
+     * Obtiene el estado de acceso al registro del usuario.
+     * 
+     * @return true si el usuario tiene acceso al registro, false en caso contrario.
+     */
     bool getlogAccess();
 
-    //Setters
+    // Setters
+    /**
+     * Establece el nombre del usuario.
+     * 
+     * @param name Nuevo nombre del usuario.
+     */
     void setName(string);
+
+    /**
+     * Establece la edad del usuario.
+     * 
+     * @param age Nueva edad del usuario.
+     */
     void setAge(int);
+
+    /**
+     * Establece el correo electrónico del usuario.
+     * 
+     * @param mail Nuevo correo electrónico del usuario.
+     */
     void setMail(string);
+
+    /**
+     * Obtiene una representación de cadena del usuario.
+     * 
+     * @return Cadena con información del usuario.
+     */
     string toString();
 };
 

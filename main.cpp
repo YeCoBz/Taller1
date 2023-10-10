@@ -14,7 +14,15 @@ using namespace std;
 #include "Security.h"
 #include "Social.h"
 
-// Verifica si todos los usuarios quieren eliminar un software.
+/** The function "allUserAcept" checks if all users in a list have accepted to delete a software.
+ * 
+ * @param userList A list of User objects.
+ * 
+ * @return a boolean value. It returns true if all users in the userList have answered "yes" (1) to the
+ * question "Desea eliminar el software?" . It returns false if at
+ * least one user has answered "no" (2) or if the number of users in the userList is different from the
+ * number of users who answered "
+ */
 bool allUserAcept(list<User>& userList) {
     int cont = 0;
     for (User& user : userList) {
@@ -36,7 +44,15 @@ bool allUserAcept(list<User>& userList) {
     }
     
 }
-// Elimina un software de la lista.
+
+/** Elimina un software de la lista.
+ * 
+ * @param listaSoftware A list of objects of type Software.
+ * @param nombreSoftware The parameter "nombreSoftware" is a string that represents the name of the
+ * software that needs to be deleted from the list.
+ * 
+ * @return nothing.
+ */
 void eliminarSoftware(list<Software>& listaSoftware,string nombreSoftware) {
     auto it = find_if(listaSoftware.begin(), listaSoftware.end(), [nombreSoftware](Software s) {
         return s.getName() == nombreSoftware;});
@@ -48,7 +64,16 @@ void eliminarSoftware(list<Software>& listaSoftware,string nombreSoftware) {
         cout << "Software no encontrado: " << nombreSoftware << endl;
     }
 }
-// Busca un software por nombre en la lista.
+
+/** Busca un software por nombre en la lista.
+ * 
+ * @param softList A list of Software objects. Each Software object represents a piece of software and
+ * has a getName() method that returns the name of the software.
+ * @param nameSoftware The name of the software that you want to search for in the softList.
+ * 
+ * @return a boolean value. It returns true if a software with the specified name is found in the
+ * softList, and false otherwise.
+ */
 bool searchSoftByName(list<Software>& softList,string nameSoftware) {
 
     for (Software& soft : softList) {
@@ -58,7 +83,15 @@ bool searchSoftByName(list<Software>& softList,string nameSoftware) {
     }
     return false;
 }
-// Busca un usuario por correo y contraseña en la lista.
+
+/** Busca un usuario por correo y contraseña en la lista.
+ * 
+ * @param userList A list of User objects.
+ * @param mail The mail parameter is a string that represents the email address of the user.
+ * @param password The password parameter is a string that represents the password of the user.
+ * 
+ * @return a boolean value.
+ */
 bool searchUser(list<User>& userList, string mail, string password) {
 
     for (User& user : userList) {
@@ -70,7 +103,14 @@ bool searchUser(list<User>& userList, string mail, string password) {
     }
     return false;
 }
-// Retorna un puntero al software encontrado por nombre.
+
+/** Retorna un puntero al software encontrado por nombre.
+ * 
+ * @param softList A list of Software objects.
+ * @param name The name of the software that you want to find in the list.
+ * 
+ * @return a pointer to a Software object.
+ */
 Software* returnSoftByName(list<Software>& softList, string name){
 
     for (Software& software : softList) {
@@ -82,7 +122,13 @@ Software* returnSoftByName(list<Software>& softList, string name){
     }
     return NULL;
 }
-// Muestra información específica del tipo de software.
+
+
+/** Muestra información específica del tipo de software.
+ * 
+ * @param soft A pointer to an object of type Software.
+ * @param user The "user" parameter is a pointer to an object of type "User".
+ */
 void typeSoftware(Software* soft,User* user) {
 
     if (dynamic_cast<Game*>(soft)) {
@@ -106,7 +152,15 @@ void typeSoftware(Software* soft,User* user) {
         cout << "Unknown software type" << endl;
     }
 }
-// Busca un usuario por correo en la lista.
+
+/** Busca un usuario por correo en la lista.
+ * 
+ * @param userList A list of User objects.
+ * @param mail The "mail" parameter is a string that represents the email address of the user we are
+ * searching for.
+ * 
+ * @return a pointer to a User object.
+ */
 User* searchUserByMail(list<User>& userList,string mail) {
 
     for (User& user : userList) {
@@ -118,14 +172,29 @@ User* searchUserByMail(list<User>& userList,string mail) {
     }
     return NULL;
 }
-// Verifica si la entrada corresponde a un usuario.
+
+/** Verifica si la entrada corresponde a un usuario.
+ * 
+ * @param m The parameter "m" is a string that represents a user input.
+ * 
+ * @return The function isUser is returning a boolean value.
+ */
 bool isUser(string m) {
     if (m=="1"|| m=="2" || m=="3" || m=="4" || m=="5" || m=="6") {
         return false;
     }
     return true;
 }
-// Busca un usuario por nombre en la lista y lo retorna.
+
+/** Busca un usuario por nombre en la lista y lo retorna.
+ * 
+ * @param userList The userList parameter is a reference to a list of User objects. This list contains
+ * all the users that we want to search through.
+ * @param name The name parameter is a string that represents the name of the user we are searching
+ * for.
+ * 
+ * @return a pointer to a User object.
+ */
 User* searchUserByName(list<User>& userList,string name) {
 
     for (User& user : userList) {
@@ -137,7 +206,15 @@ User* searchUserByName(list<User>& userList,string name) {
     }
     return NULL; 
 }
-// Lee datos desde un archivo README y crea objetos User y Software en las listas correspondientes.
+
+/** Lee datos desde un archivo README y crea objetos User y Software en las listas correspondientes.
+ * 
+ * @param userList A reference to a list of User objects. This list is used to store the User objects
+ * created from the data read from the file.
+ * @param softList A list of Software objects.
+ * 
+ * @return nothing.
+ */
 void createObject(list<User>& userList,list<Software>& softList) {
 
     ifstream arch("README.md");
@@ -249,7 +326,14 @@ void createObject(list<User>& userList,list<Software>& softList) {
     arch.close();
 
 }
-// Menús para administradores, usuarios normales y niños respectivamente, con opciones específicas para cada tipo.
+
+/** La función "menuAdmin" muestra un menú para que un administrador modifique datos de usuario y software, agregue
+ * software nuevo, eliminar software o salir del programa.
+ * 
+ * @param userList A list of User objects, representing the users in the system.
+ * @param softList A list of Software objects that represents the library of software.
+ * @param user The "user" parameter is a pointer to an object of the User class.
+ */
 void menuAdmin(list<User>& userList,list<Software>& softList,User *user) {
 
     int num;
@@ -536,6 +620,14 @@ void menuAdmin(list<User>& userList,list<Software>& softList,User *user) {
         exit(0);
     } 
 }
+
+/** La función "menuUsuarioNormal" muestra un menú para un usuario normal y le permite modificar su
+ * datos, agregar nuevo software a la biblioteca, eliminar software o salir del programa.
+ * 
+ * @param userList A list of User objects that stores information about all the users in the system.
+ * @param softList A list of Software objects that represents the library of software available.
+ * @param user A pointer to the current user object.
+ */
 void menuUsuarioNormal(list<User>& userList,list<Software>& softList,User* user) {
 
     int num;
@@ -802,6 +894,15 @@ void menuUsuarioNormal(list<User>& userList,list<Software>& softList,User* user)
         exit(0);
     } 
 }
+
+/** La función "menuKid" muestra un menú para un usuario y le permite ver sus datos o
+ * terminar el programa.
+ * 
+ * @param userList A list of User objects. This list contains information about all the users in the
+ * system.
+ * @param softList A list of Software objects.
+ * @param user A pointer to the User object representing the current user.
+ */
 void menuKid(list<User>& userList,list<Software>& softList,User* user) {
     
     int num;
@@ -835,7 +936,12 @@ void menuKid(list<User>& userList,list<Software>& softList,User* user) {
     }
 
 }
-// Menú principal para iniciar sesión y dirigir al usuario al menú correspondiente.
+
+/** Menú principal para iniciar sesión y dirigir al usuario al menú correspondiente.
+ * 
+ * @param userList A list of User objects, which contains information about the users of the system.
+ * @param softList The parameter `softList` is a reference to a list of `Software` objects.
+ */
 void menu(list<User>& userList,list<Software>& softList) {
 
     string mail;

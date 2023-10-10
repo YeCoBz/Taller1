@@ -5,7 +5,22 @@ class Game: public Software {
     private:
     string gameGenre;
     public:
+
+    /**
+     * Constructor de la clase Game.
+     * 
+     * @param name Nombre del juego.
+     * @param developer Desarrollador del juego.
+     * @param minAge Edad mínima requerida para el juego.
+     * @param price Precio del juego.
+     * @param gameGenre Género del juego.
+     */
     Game(string,string,string,double,string);
+
+    /**
+     * Método toString que devuelve una representación en cadena de la información del juego.
+     * @return Cadena que representa la información del juego.
+     */
     string toString();
 };
 
