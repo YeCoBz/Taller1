@@ -26,6 +26,7 @@ class User {
     void setName(string);
     void setAge(int);
     void setMail(string);
+    string toString();
 };
 
 User::User(string name,string password,int age,string mail,string _logAccess) {
@@ -62,4 +63,8 @@ void User::setAge(int age) {
 }
 void User::setMail(string mail) { 
     this->mail = mail; 
+}
+string User::toString() {
+    return "Nombre: " + name + ", Contraseña: " + password + ", Edad: " + to_string(age) +
+           ", Correo: " + mail + ", Acceso al registro: " + (logAccess ? "Sí" : "No");
 }
