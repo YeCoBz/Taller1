@@ -4,7 +4,6 @@
 #include <list>
 #include <vector>
 using namespace std;
-
 #include "User.h"
 #include "Software.h"
 #include "Game.h"
@@ -12,7 +11,19 @@ using namespace std;
 #include "Production.h"
 #include "Browser.h"
 #include "Security.h"
+
 #include "Social.h"
+
+
+bool searchSoftByName(list<Software>& softList,string nameSoftware) {
+
+    for (Software& soft : softList) {
+        if (soft.getName() == nameSoftware) {
+            return true;
+        }
+    }
+    return false;
+}
 bool searchUser(list<User>& userList, string mail, string password) {
 
     for (User& user : userList) {
@@ -24,7 +35,40 @@ bool searchUser(list<User>& userList, string mail, string password) {
     }
     return false;
 }
+Software* returnSoftByName(list<Software>& softList, string name){
 
+    for (Software& software : softList) {
+        
+        if (software.getName() == name) {
+            Software *pSoft = &software;
+            return pSoft;
+        }
+    }
+    return NULL;
+}
+void typeSoftware(Software* soft,User* user) {
+
+    if (dynamic_cast<Game*>(soft)) {
+        cout << "    "<< soft->getName() << endl;
+        cout << "1. Informacion completa del juego." << endl;
+        cout << "1" << endl;
+    } else if (dynamic_cast<OfficeAutomation*>(soft)) {
+        cout << "    "<< soft->getName() << endl;
+        
+        
+    } else if (dynamic_cast<Production*>(soft)) {
+        cout << "Processing Production" << endl;
+        // Hacer algo específico para Productio
+    } else if (dynamic_cast<Browser*>(soft)) {
+        cout << "Processing Browser" << endl;
+        // Hacer algo específico para Browser
+    } else if (dynamic_cast<Social*>(soft)) {
+        cout << "Processing Social" << endl;
+        // Hacer algo específico para Social
+    } else {
+        cout << "Unknown software type" << endl;
+    }
+}
 User* searchUserByMail(list<User>& userList,string mail) {
 
     for (User& user : userList) {
@@ -67,6 +111,7 @@ void createObject(list<User>& userList,list<Software>& softList) {
      }
 
     while (getline(arch, line)) {
+
         istringstream stream(line);
         string token;
         vector<string> tokens;
@@ -74,8 +119,6 @@ void createObject(list<User>& userList,list<Software>& softList) {
         while (getline(stream, token, ';')) {
             tokens.push_back(token);
         }
-
-        cout << tokens[1] << endl;
 
         if (isUser(tokens[0])) {
 
@@ -169,7 +212,7 @@ void createObject(list<User>& userList,list<Software>& softList) {
 
 }
 
-void menuAdmin(list<User>& userList,list<Software>& softList) {
+void menuAdmin(list<User>& userList,list<Software>& softList,User *user) {
 
     int num;
     bool endCode = false;
@@ -179,11 +222,11 @@ void menuAdmin(list<User>& userList,list<Software>& softList) {
         cout << "      MENU ADMINISTRADOR\n" << endl;
         cout << "1. Modificar los datos de usuarios." << endl;
         cout << "2. Modificar datos de softwares." << endl;
-        cout << "3. Agregar pagina web a un navegador" << endl;
-        cout << "4. Agregar un amigo a una red social" << endl;
-        cout << "5. Cambiar de usuario" << endl;
-        cout << "6. Terminar el programa\n" << endl;
-        cout << "Ingrese la opcion que desea" << endl;
+        cout << "3. Agregar un software nuevo a la biblioteca." << endl;
+        cout << "4. Agregar un amigo a una red social." << endl;
+        cout << "5. Cambiar de usuario." << endl;
+        cout << "6. Terminar el programa.\n" << endl;
+        cout << "Ingrese la opcion que desea: " << endl;
         cin >> num;
         cout << "\n" << endl;
 
@@ -192,11 +235,11 @@ void menuAdmin(list<User>& userList,list<Software>& softList) {
             cout << "      MENU ADMINISTRADOR\n" << endl;
             cout << "1. Modificar los datos de usuarios." << endl;
             cout << "2. Modificar datos de softwares." << endl;
-            cout << "3. Agregar pagina web a un navegador" << endl;
-            cout << "4. Agregar un amigo a una red social" << endl;
-            cout << "5. Cambiar de usuario" << endl;
-            cout << "6. Terminar el programa\n" << endl;
-            cout << "Ingrese la opcion que desea" << endl;
+            cout << "3. Agregar un software nuevo a la biblioteca." << endl;
+            cout << "4. Agregar un amigo a una red social." << endl;
+            cout << "5. Cambiar de usuario." << endl;
+            cout << "6. Terminar el programa.\n" << endl;
+            cout << "Ingrese la opcion que desea: " << endl;
             cin >> num;
             cout << "\n" << endl;
         }
@@ -286,12 +329,153 @@ void menuAdmin(list<User>& userList,list<Software>& softList) {
         case 2:
         {
             string softName;
-            cout << "Ingrese " << endl;
+            cout << "\nIngrese el nombre del software:" << endl;
+            cin >> softName;
+            while (!searchSoftByName(softList,softName)) {
+                cout << "ERROR!!! SOFTWARE NO ENCONTRADO, INGRESE NUEVAMENTE EL NOMBRE" << endl;
+                cout << "\nIngrese el nombre del software:" << endl;
+                cin >> softName;
+            }
+            Software *soft = returnSoftByName(softList,softName);
+            typeSoftware(soft,user);
             break;
         }
         case 3:
         {
-            /* code */
+            string newSoft;
+            cout << "¿Qué tipo de software desea agregar?\n" << endl;
+            cout << "1. Juego" << endl;
+            cout << "2. Ofimatica" << endl;
+            cout << "3. Produccion" << endl;
+            cout << "4. Browser" << endl;
+            cout << "5. Security" << endl;
+            cout << "6. Social\n" << endl;
+            cout << "Ingresar opcion: \n" << endl;
+            cin >> newSoft;
+
+            while (isUser(newSoft)){
+                cout << "ERROR!!! OPCION NO VALIDA\n" << endl;
+                cout << "1. Juego" << endl;
+                cout << "2. Ofimatica" << endl;
+                cout << "3. Produccion" << endl;
+                cout << "4. Browser" << endl;
+                cout << "5. Security" << endl;
+                cout << "6. Social\n" << endl;
+                cout << "Ingresar opcion: \n" << endl;
+                cin >> newSoft;
+            }
+
+            string name;
+            string developer;
+            string minAge;
+            double price;
+
+            switch (stoi(newSoft)) {
+            {
+            case 1:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                cout << "Genero del juego: " << endl;
+                string gameGenre;
+                cin >> gameGenre;
+                Game game(name,developer,minAge,price,gameGenre);
+                softList.push_back(game);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            {
+            case 2:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                cout << "Numero de archivos: " << endl;
+                int numArch;
+                cin >> numArch;
+                OfficeAutomation of(name,developer,minAge,price,numArch);
+                softList.push_back(of);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            {
+            case 3:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                cout << "Numero de archivos: " << endl;
+                string typeSolution;
+                cin >> typeSolution;
+                Production production(name,developer,minAge,price,typeSolution);
+                softList.push_back(production);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            {
+            case 4:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                Browser browser(name,developer,minAge,price);
+                softList.push_back(browser);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            {
+            case 5:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                cout << "Numero de archivos: " << endl;
+                string typeMalware;
+                cin >> typeMalware;
+                Security security(name,developer,minAge,price,typeMalware);
+                softList.push_back(security);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            {
+            case 6:
+                cout << "Nombre del software: " << endl;
+                cin >> name;
+                cout << "Nombre del desarollador: " << endl;
+                cin >> developer;
+                cout << "Edad minima del software (>18 o <18): " << endl;
+                cin >> minAge;
+                cout << "Precio del software: " << endl;
+                cin >> price;
+                Social social(name,developer,minAge,price);
+                softList.push_back(social);
+                cout << "\nSoftware guardado" << endl;
+                break;
+            }
+            default:
+                break;
+            }
             break;
         }
         case 4:
@@ -325,7 +509,7 @@ void menu(list<User>& userList,list<Software>& softList) {
     if (mail=="fin") {
         exit(0);
     }
-    cout << "contrasena: "<< "(Si desea terminar el programa, ingrese fin)" << endl;
+    cout << "\ncontrasena: "<< "(Si desea terminar el programa, ingrese fin)" << endl;
     cin >> password;
     if (password=="fin") {
         exit(0);
@@ -341,7 +525,7 @@ void menu(list<User>& userList,list<Software>& softList) {
         if (mail=="fin") {
         exit(0);
         }   
-        cout << "contrasena: " << endl;
+        cout << "\ncontrasena: " << endl;
         cin >> password;
         if (password=="fin") {
         exit(0);
@@ -355,7 +539,7 @@ void menu(list<User>& userList,list<Software>& softList) {
     {
     case true:
     {
-        menuAdmin(userList,softList);
+        menuAdmin(userList,softList,user);
         break;
     }
     case false:
